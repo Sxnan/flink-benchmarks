@@ -118,7 +118,7 @@ public class MultipleInputBenchmark extends BenchmarkBase {
     @OperationsPerInvocation(RECORDS_PER_INVOCATION)
     public void multiInputChainedIdleSource(FlinkEnvironmentContext context) throws Exception {
         final StreamExecutionEnvironment env = context.env;
-        env.getConfig().enableObjectReuse();
+//        env.getConfig().enableObjectReuse();
 
         final DataStream<Long> source1 =
                 env.fromSource(
