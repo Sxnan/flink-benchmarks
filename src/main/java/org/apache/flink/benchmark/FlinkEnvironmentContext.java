@@ -44,7 +44,7 @@ public class FlinkEnvironmentContext {
 
     public static final int NUM_NETWORK_BUFFERS = 1000;
     protected final int parallelism = 1;
-    protected final boolean objectReuse = true;
+    protected final boolean objectReuse = false;
     public StreamExecutionEnvironment env;
     public MiniCluster miniCluster;
 
