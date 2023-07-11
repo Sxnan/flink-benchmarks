@@ -26,4 +26,9 @@ public class MultiplyIntLongByTwo
     public IntegerLongSource.Record map(IntegerLongSource.Record record) throws Exception {
         return IntegerLongSource.Record.of(record.key, record.value * 2);
     }
+
+    @Override
+    public boolean isOutputValueStored() {
+        return false;
+    }
 }

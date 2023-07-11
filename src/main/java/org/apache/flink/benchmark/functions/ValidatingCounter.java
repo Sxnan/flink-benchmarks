@@ -36,4 +36,9 @@ public class ValidatingCounter<T> implements ReduceFunction<T> {
         }
         return value1;
     }
+
+    @Override
+    public boolean isOutputValueStored() {
+        return false;
+    }
 }

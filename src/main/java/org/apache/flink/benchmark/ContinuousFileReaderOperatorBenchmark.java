@@ -119,6 +119,11 @@ public class ContinuousFileReaderOperatorBenchmark extends BenchmarkBase {
         public void cancel() {
             isRunning = false;
         }
+
+        @Override
+        public boolean isOutputValueStored() {
+            return false;
+        }
     }
 
     private static class MockInputFormat extends FileInputFormat<String> {

@@ -26,4 +26,9 @@ public class SumReduceIntLong implements ReduceFunction<IntegerLongSource.Record
             IntegerLongSource.Record var1, IntegerLongSource.Record var2) throws Exception {
         return IntegerLongSource.Record.of(var1.key, var1.value + var2.value);
     }
+
+    @Override
+    public boolean isOutputValueStored() {
+        return false;
+    }
 }

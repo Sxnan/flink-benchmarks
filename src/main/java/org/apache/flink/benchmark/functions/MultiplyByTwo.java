@@ -25,4 +25,9 @@ public class MultiplyByTwo implements MapFunction<Long, Long> {
     public Long map(Long value) throws Exception {
         return value * 2;
     }
+
+    @Override
+    public boolean isOutputValueStored() {
+        return false;
+    }
 }

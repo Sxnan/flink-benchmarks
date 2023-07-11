@@ -25,4 +25,9 @@ public class SumReduce implements ReduceFunction<Long> {
     public Long reduce(Long value1, Long value2) throws Exception {
         return value1 + value2;
     }
+
+    @Override
+    public boolean isOutputValueStored() {
+        return false;
+    }
 }
