@@ -37,6 +37,8 @@ import org.apache.flink.streaming.api.operators.ChainingStrategy;
 import org.apache.flink.streaming.api.operators.Input;
 import org.apache.flink.streaming.api.operators.MultipleInputStreamOperator;
 import org.apache.flink.streaming.api.operators.OneInputStreamOperator;
+import org.apache.flink.streaming.api.operators.OperatorAttributes;
+import org.apache.flink.streaming.api.operators.OperatorAttributesBuilder;
 import org.apache.flink.streaming.api.operators.StreamOperator;
 import org.apache.flink.streaming.api.operators.StreamOperatorFactory;
 import org.apache.flink.streaming.api.operators.StreamOperatorParameters;
@@ -227,6 +229,14 @@ public class SortingBoundedInputBenchmarks extends BenchmarkBase {
         public void endInput() {
             output.collect(new StreamRecord<>(asserter.getSeenRecords()));
         }
+
+        @Override
+        public OperatorAttributes getOperatorAttributes() {
+            return new OperatorAttributesBuilder()
+                    .setOutputStreamRecordValueStored(false)
+                    .setInputStreamRecordStored(false)
+                    .build();
+        }
     }
 
     private static class AssertingTwoInputOperator extends AbstractStreamOperator<Long>
@@ -258,6 +268,14 @@ public class SortingBoundedInputBenchmarks extends BenchmarkBase {
             if (input1Finished && input2Finished) {
                 output.collect(new StreamRecord<>(asserter.getSeenRecords()));
             }
+        }
+
+        @Override
+        public OperatorAttributes getOperatorAttributes() {
+            return new OperatorAttributesBuilder()
+                    .setOutputStreamRecordValueStored(false)
+                    .setInputStreamRecordStored(false)
+                    .build();
         }
     }
 
@@ -300,6 +318,14 @@ public class SortingBoundedInputBenchmarks extends BenchmarkBase {
                     new SingleInput(asserter::processElement),
                     new SingleInput(asserter::processElement));
         }
+
+        @Override
+        public OperatorAttributes getOperatorAttributes() {
+            return new OperatorAttributesBuilder()
+                    .setOutputStreamRecordValueStored(false)
+                    .setInputStreamRecordStored(false)
+                    .build();
+        }
     }
 
     private static class AssertingThreeInputOperatorFactory implements StreamOperatorFactory<Long> {
@@ -321,6 +347,14 @@ public class SortingBoundedInputBenchmarks extends BenchmarkBase {
         @Override
         public Class<? extends StreamOperator> getStreamOperatorClass(ClassLoader classLoader) {
             return AssertingThreeInputOperator.class;
+        }
+
+        @Override
+        public OperatorAttributes getOperatorAttributes() {
+            return new OperatorAttributesBuilder()
+                    .setOutputStreamRecordValueStored(false)
+                    .setInputStreamRecordStored(false)
+                    .build();
         }
     }
 

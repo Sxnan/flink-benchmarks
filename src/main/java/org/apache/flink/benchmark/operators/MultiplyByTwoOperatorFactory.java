@@ -23,6 +23,8 @@ import org.apache.flink.streaming.api.operators.AbstractStreamOperatorFactory;
 import org.apache.flink.streaming.api.operators.AbstractStreamOperatorV2;
 import org.apache.flink.streaming.api.operators.Input;
 import org.apache.flink.streaming.api.operators.MultipleInputStreamOperator;
+import org.apache.flink.streaming.api.operators.OperatorAttributes;
+import org.apache.flink.streaming.api.operators.OperatorAttributesBuilder;
 import org.apache.flink.streaming.api.operators.StreamOperator;
 import org.apache.flink.streaming.api.operators.StreamOperatorParameters;
 import org.apache.flink.streaming.runtime.streamrecord.StreamRecord;
@@ -41,6 +43,14 @@ public class MultiplyByTwoOperatorFactory extends AbstractStreamOperatorFactory<
     @Override
     public Class<? extends StreamOperator> getStreamOperatorClass(ClassLoader classLoader) {
         return MultiplyByTwoOperator.class;
+    }
+
+    @Override
+    public OperatorAttributes getOperatorAttributes() {
+        return new OperatorAttributesBuilder()
+                .setOutputStreamRecordValueStored(false)
+                .setInputStreamRecordStored(false)
+                .build();
     }
 
     public static class MultiplyByTwoOperator extends AbstractStreamOperatorV2<Long>
@@ -65,6 +75,14 @@ public class MultiplyByTwoOperatorFactory extends AbstractStreamOperatorFactory<
             public void processElement(StreamRecord<Long> element) {
                 output.collect(element.replace(element.getValue() * 2));
             }
+        }
+
+        @Override
+        public OperatorAttributes getOperatorAttributes() {
+            return new OperatorAttributesBuilder()
+                    .setOutputStreamRecordValueStored(false)
+                    .setInputStreamRecordStored(false)
+                    .build();
         }
     }
 }
